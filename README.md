@@ -37,7 +37,7 @@ graph TD
     YTDLP -->|Saves File| SharedVol[Shared Docker Volume]
     SharedVol -->|Reads File| Frontend
     Frontend -->|Delivers File| User
----
+    
 
 ### Project Structure
 ```bash
