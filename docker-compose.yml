@@ -1,0 +1,35 @@
+services:
+  backend:
+    build: ./BACKEND
+    container_name: yt-backend
+    volumes:
+      - ./BACKEND/downloads:/app/downloads
+    restart: unless-stopped
+    networks:
+      - docktube-net
+    environment:
+      - FLASK_ENV=production
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:5000')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  frontend:
+    build: ./FRONTEND
+    container_name: yt-frontend
+    restart: unless-stopped
+    ports:
+      - "4477:8501"
+    networks:
+      - docktube-net
+    depends_on:
+      backend:
+        condition: service_started
+    environment:
+      - BACKEND_URL=http://backend:5000
+
+networks:
+  docktube-net:
+    external: true
