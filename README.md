@@ -29,6 +29,16 @@ The application follows a microservices architecture with two main containers sh
 | **Frontend** | UI, status polling, and file library. | Python, Streamlit | `8501` |
 | **Backend** | Async download tasks & file management. | Python, Flask, yt-dlp | `5000` |
 
+graph TD
+    User([User]) -->|Interacts| Frontend[Streamlit Frontend <br> Port 8501]
+    Frontend -->|Requests Download| Backend[Flask API <br> Port 5000]
+    Backend -->|Spawns Process| YTDLP[yt-dlp Engine]
+    YTDLP -->|Downloads| YouTube[YouTube Servers]
+    YTDLP -->|Saves File| SharedVol[Shared Docker Volume]
+    SharedVol -->|Reads File| Frontend
+    Frontend -->|Delivers File| User
+---
+
 ### Project Structure
 ```bash
 YT-downloader/
