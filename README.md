@@ -32,7 +32,7 @@ This application separates the User Interface from the Heavy Processing to ensur
 
 ```mermaid
 graph TD
-    User([User]) -->|1. Enters URL| Frontend[Streamlit Frontend <br> Port 8501]
+    User([User]) -->|1. Enters URL| Frontend[Streamlit Frontend <br> Port 4477]
     Frontend -->|2. POST Request| Backend[Flask API <br> Port 5000]
     Backend -->|3. Spawns| YTDLP[yt-dlp Process]
     YTDLP -->|4. Downloads from| YouTube[YouTube Servers]
